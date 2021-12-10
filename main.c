@@ -9,7 +9,7 @@ typedef struct{
 int ofrecer (double precio){
     nWait()
 
-    /* 
+    /* FUNCIONO
         Esta funcion espera hasta que se llame a la funcion adjudicar en cuyo caso se retornA TRUE
         y el hilos que llama es el ganador con otros que ofrecioron un precio mayor
         Si el precio es menor al que ofrecioron los otros retorna FALSE
