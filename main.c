@@ -9,11 +9,12 @@ typedef struct{
 
 
 nMonitor mon;
-PriQueue *MakePriQueue();
+cola = PriQueue *MakePriQueue();
 
 nCondition adjudicacion;//son los procesos que son candidatos a adjudicarce una unidad 
-nCondition ofertas;
+
 int punidades;
+int contador;
 /*s
     nCondition nMakeCondition(nMonitor mon): es como un cola de espera, donde quedan los procesos esperando
     void nWaitCondition (nCondition cond): el proceso se queda en espera pasiva
@@ -27,8 +28,15 @@ int ofrecer (double precio){
    //Patron de uso
    
     nEnter(mon);
-    while(//no se llame a adjudicar)
+    while(contador > punidades){
         nWaitCondition(adjudicacion);
+    }
+    if (PriLength(cola) == 0 ){
+        PriPut(cola, agrego un puntero al objeto, precio);//la prioridad es numero pero no sé a que se refiere
+    }else{
+        //debo 
+    }
+    
     nNotifyAll(m);
 
     nExit(mon);    
