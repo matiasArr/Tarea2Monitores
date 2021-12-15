@@ -9,12 +9,15 @@ typedef struct{
 
 
 nMonitor mon;
-cola = PriQueue *MakePriQueue();
+// cola que almacena los precios de las ofertas
+precios = PriQueue *MakePriQueue();
 
 nCondition adjudicacion;//son los procesos que son candidatos a adjudicarce una unidad 
 
 int punidades;
 int contador;
+int contadorLlamadas = 0;
+int montoRecaudado;
 /*s
     nCondition nMakeCondition(nMonitor mon): es como un cola de espera, donde quedan los procesos esperando
     void nWaitCondition (nCondition cond): el proceso se queda en espera pasiva
@@ -22,21 +25,32 @@ int contador;
 
 
 */
+llamadasAOfrecer(){  //Esto no esta funcionando, pero es una idea
+    while(contadorLlamadas <= punidades){
+        contadorLlamadas+=1;
+    }
+    contadorLlamadas;
+   // return contadorLlamadas; 
+}
+int largoCola(){
+    return PriLength(precios);
+}
 int ofrecer (double precio){
-   //Se ingresa el monitor solo cuando quiero protejer algo
+   /*Se ingresa el monitor solo cuando quiero protejer algo
    // se tiene que guardar los precios
+
+   //extrae el precio cuando sobrepaso las punidades
    //Patron de uso
-   
+   Si sobrepaso las punidades debe quitar la menor oferta 
+   */
+
+   llamadasAOfrecer();
     nEnter(mon);
-    while(contador > punidades){
+    while(largoCola > punidades){
         nWaitCondition(adjudicacion);
     }
-    if (PriLength(cola) == 0 ){
-        PriPut(cola, agrego un puntero al objeto, precio);//la prioridad es numero pero no sé a que se refiere
-    }else{
-        //debo 
-    }
-    
+    //paso y agrego a la cola
+    PriPut(precios, agrego un puntero al threads, precio);//la prioridad es numero pero no sé a que se refiere
     nNotifyAll(m);
 
     nExit(mon);    
@@ -51,8 +65,9 @@ int ofrecer (double precio){
 }
 
 double adjudicar(int *punidades){
+    
     nEnter(mon);
-        while(){
+        while(/*mientras no*/){
 
         }
         nSignalCondition(adjudicacion);
