@@ -1,10 +1,8 @@
 #include <nSystem.h>
 
-/*
-    Idea
+#DEFINE TRUE 1;
+#DEFINE FALSE 2;
 
-
-*/
 
 typedef struct
 {
@@ -132,6 +130,15 @@ double adjudicar(int *punidades)
         ganardores[i]=p.id;
         suma+= p.precio;
         i++;
+
+        //OTRA FORMA
+        //HACER LAS RESTA ENTRE: EL TOTAL DE OFERTAS - PUNIDADES = RESULTADO
+        //SE RECORRE EL ARREGLO HASTA EL RESULTADO Y TODOS SE RETORNAR FALSE Y SE SACAN
+        for (int i = 0; i < precios; i++)
+        {
+            /* code */
+        }
+        
     }
     nSignalCondition(adjudicacion);
     nExit(mon);
