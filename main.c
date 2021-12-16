@@ -1,5 +1,11 @@
 #include <nSystem.h>
 
+/*
+    Idea
+
+
+*/
+
 typedef struct{
     nMonitor nom;
     int size;
@@ -46,7 +52,7 @@ int ofrecer (double precio){
 
    llamadasAOfrecer();
     nEnter(mon);
-    while(largoCola > punidades){
+    while(largoCola > punidades){// condicion para quedar en espera
         nWaitCondition(adjudicacion);
     }
     //paso y agrego a la cola
