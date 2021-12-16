@@ -6,19 +6,21 @@
 
 */
 
-typedef struct{
+typedef struct
+{
     nMonitor nom;
     int size;
     int count;
-    
-}* buff;
 
+} * buff;
+
+long ganadores[N];
 
 nMonitor mon;
 // cola que almacena los precios de las ofertas
-precios = PriQueue *MakePriQueue();
+precios = PriQueue * MakePriQueue();
 
-nCondition adjudicacion;//son los procesos que son candidatos a adjudicarce una unidad 
+nCondition adjudicacion; //son los procesos que son candidatos a adjudicarce una unidad
 
 int punidades;
 int contador;
@@ -31,18 +33,22 @@ int montoRecaudado;
 
 
 */
-llamadasAOfrecer(){  //Esto no esta funcionando, pero es una idea
-    while(contadorLlamadas <= punidades){
-        contadorLlamadas+=1;
+llamadasAOfrecer()
+{ //Esto no esta funcionando, pero es una idea
+    while (contadorLlamadas <= punidades)
+    {
+        contadorLlamadas += 1;
     }
     contadorLlamadas;
-   // return contadorLlamadas; 
+    // return contadorLlamadas;
 }
-int largoCola(){
+int largoCola()
+{
     return PriLength(precios);
 }
-int ofrecer (double precio){
-   /*Se ingresa el monitor solo cuando quiero protejer algo
+int ofrecer(double precio)
+{
+    /*Se ingresa el monitor solo cuando quiero protejer algo
    // se tiene que guardar los precios
 
    //extrae el precio cuando sobrepaso las punidades
@@ -50,33 +56,82 @@ int ofrecer (double precio){
    Si sobrepaso las punidades debe quitar la menor oferta 
    */
 
-   llamadasAOfrecer();
+    // • PriQueue *MakePriQueue(): entrega una nueva cola.
+    // • void PriPut(PriQueue *q, void *ptr, double pri): agrega el objeto ptr con prioridad pri.
+    // • void *PriGet(PriQueue *q): entrega y extrae el objeto cuya prioridad tiene el valor numérico menor.
+    // • int PriLength(PriQueue *q): entrega el largo de la cola.
+
+    //buscar maneras de generar ids unicos
+    long id = system.date.getCurrentTime();
+
+    //ver si se puede usar un struct en un metodo
+    typedef struct
+    {
+        long id,
+            double precio
+    } ofre;
+
+    ofre.id = id;
+    ofre.precio = precio;
+
     nEnter(mon);
-    while(largoCola > punidades){// condicion para quedar en espera
-        nWaitCondition(adjudicacion);
+
+    if (PriLength(precios) >= punidades)
+    {
+        void *min = PriGet(precios)
+
+            //quedarse con la mayor oferta
+            if (min.precio > precio)
+        {
+            //se usa así?(precios, min, min.precio))
+            PriPut(precios, min, min.precio);
+        }
+        else
+        {
+            PriPut(precios, ofre, precio);
+        }
+    }
+    else
+    {
+        PriPut(precios, ofre, precio);
+    }
+
+    nWaitCondition(adjudicacion);
+
+    for (int i = 0; i < ganador.length; i++)
+    {
+        if (ganador[i] == id)
+        {
+
+            nNotifyAll(m);
+            nExit(mon);
+            return true;
+        }
     }
     //paso y agrego a la cola
-    PriPut(precios, agrego un puntero al threads, precio);//la prioridad es numero pero no sé a que se refiere
     nNotifyAll(m);
+    nExit(mon);
+    false;
 
-    nExit(mon);    
-
-   
     /* 
         Esta funcion espera hasta que se llame a la funcion adjudicar en cuyo caso se retornA TRUE
         y el hilos que llama es el ganador con otros que ofrecioron un precio mayor
         Si el precio es menor al que ofrecioron los otros retorna FALSE
     */
-   
 }
 
-double adjudicar(int *punidades){
-    
-    nEnter(mon);
-        while(/*mientras no*/){
+double adjudicar(int *punidades)
+{
 
-        }
-        nSignalCondition(adjudicacion);
+    nEnter(mon);
+    int i = 0;
+    while (/*mientras la pila tenga elementos*/)
+    {
+        void * p = PriGet(precios)
+        ganardores[i]=p.id;
+        i++;
+    }
+    nSignalCondition(adjudicacion);
     nExit(mon);
     /*
         Determina el ganador haciendo que todas las llamada a ofrecer retorne TRUE 
