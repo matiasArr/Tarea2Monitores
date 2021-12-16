@@ -21,7 +21,9 @@ precios = PriQueue * MakePriQueue();
 nCondition adjudicacion; //son los procesos que son candidatos a adjudicarce una unidad
 
 int punidades;
-int contador;
+
+int contador = 0;
+
 int contadorLlamadas = 0;
 int montoRecaudado;
 /*s
@@ -63,11 +65,14 @@ int ofrecer(double precio)
     long id = system.date.getCurrentTime();
 
     //ver si se puede usar un struct en un metodo
-    typedef struct
+    struct oferta
     {
         long id,
-            double precio
-    } ofre;
+        double precio
+    };
+
+    oferta -> id = contador;
+    oferta -> precio = precio;
 
     ofre.id = id;
     ofre.precio = precio;
@@ -76,6 +81,7 @@ int ofrecer(double precio)
 
     if (PriLength(precios) >= punidades)
     {
+        //obtengo el menor de la cola
         void *min = PriGet(precios)
 
             //quedarse con la mayor oferta
@@ -86,14 +92,21 @@ int ofrecer(double precio)
         }
         else
         {
+            //al menor de la cola le retorno = 2 == false
+            return 2;
+            //ingreso a la cola al actual
             PriPut(precios, ofre, precio);
         }
     }
     else
     {
+        //ingreso a la cola al actual
         PriPut(precios, ofre, precio);
     }
-
+    // Encola a la condition posibles ganardores
+    nWaitCondition(posiblesGanadores);
+    // despues que se haya adjudicados se sacan de la cola y todos retornan 1 
+    
     nWaitCondition(adjudicacion);
 
     for (int i = 0; i < ganador.length; i++)
