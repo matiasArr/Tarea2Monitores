@@ -125,14 +125,18 @@ double adjudicar(int *punidades)
 
     nEnter(mon);
     int i = 0;
+    double suma = 0;
     while (/*mientras la pila tenga elementos*/)
     {
         void * p = PriGet(precios)
         ganardores[i]=p.id;
+        suma+= p.precio;
         i++;
     }
     nSignalCondition(adjudicacion);
     nExit(mon);
+
+    return suma;
     /*
         Determina el ganador haciendo que todas las llamada a ofrecer retorne TRUE 
         Retorna el monto recaudado = suma(precios ofrecidos)
